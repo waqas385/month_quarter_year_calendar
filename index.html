@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Custom Date Calendar</title>
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="date_calendar.css" />
+		
+	</head>
+	<body>
+		<div style="margin:0 auto; width:40%;">
+			<form action="" onsubmit="alert('form submit call');" id="variance" name="variance">
+				<!--<input type="text" id="variance_field" value="M:2014-01-01,2014-02-01,2014-03-01,2014-04-01,2014-05-01,2014-06-01">-->
+				<!--<input type="text" id="variance_field" value="Y:2009-01-01,2010-01-01,2011-01-01,2012-01-01,2013-01-01">-->
+				<!--<input type="text" id="variance_field" value="Q:2010-01-01,2010-04-01,2010-07-01,2010-10-01,2011-01-01,2011-04-01,2011-07-01,2011-10-01,2012-01-01,2012-04-01">-->
+				<input type="text" id="variance_field" value="">
+			</form>
+			
+			<span class="img_cal"></span>
+		</div>
+		<div style="height:330px;">&nbsp;</div>
+		
+		
+		<!-- Calendar Div -->
+		<div class="calendar_container" style="display:none">
+			<div class="cal-filter">
+				<label class="cal-label monthly">Monthly</label>
+				<label class="cal-label quarterly">Quarterly</label>
+				<label class="cal-label yearly">Yearly</label>
+				
+			</div>
+			<div class="separator">&nbsp;</div>
+			<div class="cal-title">
+				<div class="cal-select-sec">
+					Year:
+					<select class="cal-select-month"></select>
+					<select class="cal-select-quarter"></select>
+					<select class="cal-select-year"></select>
+					<!--<span class="select_value">-- Select Year --</span>-->
+				</div>
+				<div class="cal-prev-btn"><span class="left_arrow"></span></div>
+				<div class="cal-next-btn"><span class="right_arrow"></span></div>
+			</div>
+			<div class="cal-body">
+				<!-- Cal Month -->
+				<div id="cal-month" class="cal-body-month"></div>
+				<!-- Quarter -->	
+				<div id="cal-quarter" class="cal-body-quarter"></div>
+				<!-- Yearly -->
+				<div id="cal-year" class="cal-body-year"></div>
+				<span class="choose_date_notice">Start Date</span>
+			</div>
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script src="date_calendar.js"></script>
+	
+	<script>
+		$(function(){
+			$(".img_cal").customcalendar({
+				field_id : "variance_field",
+				no_of_select_months : 12,
+				no_of_select_quarters : 12,
+				no_of_select_years : 5,
+				range_selection : true,
+				start_year : 2009,
+				onSelect : function(){
+					//$("#variance").submit();
+				}
+			});
+			
+		});
+		
+		
+		
+	</script>
+</html>
