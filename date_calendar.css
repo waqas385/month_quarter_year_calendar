@@ -1,0 +1,317 @@
+.img_cal{
+	
+    background-image: url("img/calendar-icon_s.png");
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+    display: block;
+    cursor: pointer;
+}
+
+.left_arrow{
+    background-image: url('img/arrows.png');
+    background-position:93px -121px, center center;
+    background-position-x: 93px;
+    background-position-y: -121px;
+    width: 26px;
+    height: 26px;
+    float:left;
+}
+
+.left_arrow:hover{
+
+  background-position:222px -121px, center center;
+  background-position-x: 222px;
+  background-position-y: -121px;
+}
+
+.right_arrow{
+    background-image: url('img/arrows.png');
+    background-position: 35px -121px, center center;
+    background-position-x: 35px;
+    background-position-y: -121px;
+    width: 26px;
+    height: 26px;
+    float:left;
+
+}
+
+.right_arrow:hover{
+
+  background-position:164px -121px, center center;
+  background-position-x: 164px;
+  background-position-y: -121px;
+}
+
+.select_value{
+   background: none repeat scroll 0 0 #ffffff;
+    float: left;
+    position: relative;
+    text-align: center;
+    top: -18px;
+    width: 100px;
+    z-index: 1;
+}
+
+/*
+Arrow div taken from http://cssarrowplease.com/
+*/
+
+.calendar_container { 
+    background-color: #FFFFFF;
+    position: relative; 
+    border: 2px solid #f5f5f5; 
+    width:275px;
+    height:auto;
+    padding-bottom: 8px;
+    position: absolute;
+    top:45px;
+    left:198px;
+    z-index: 1000;
+} 
+
+.calendar_container .row{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    float: left;
+}
+
+.calendar_container:after, .calendar_container:before { 
+    bottom: 100%; left: 90%; 
+    border: solid transparent; 
+    content: " "; 
+    height: 0; width: 0; 
+    position: absolute; pointer-events: none; 
+} 
+.calendar_container:after { 
+    border-color: rgba(213, 210, 209, 0); 
+    border-bottom-color: #d5d2d1; 
+    border-width: 6px; 
+    margin-left: -6px; 
+} 
+.calendar_container:before { 
+    border-color: rgba(245, 245, 245, 0); 
+    border-bottom-color: #f5f5f5; 
+    border-width: 12px; 
+    margin-left: -12px; 
+}
+
+/******/
+
+.calendar_container{
+	float:left;
+	
+}
+
+.calendar_container hr{
+	float:left;
+	width:100%;
+}
+
+.separator{
+    width: 100%;
+    float:left;
+    border-top:1px solid #C2C2C2;
+    height: 10px;
+}
+
+.cal-filter{
+    margin: 0 auto;
+    width: 100%;
+    float: left;
+    padding: 10px 0px 10px 20px;
+}
+
+	
+.cal-title{
+    width: 100%;
+    float: left;
+}
+
+.calendar_container label.cal-label{
+    width:33%;
+    color:#447BC4;
+    cursor: pointer;
+    float:left;
+    text-align: center;
+}
+
+.calendar_container label.cal-label-sel{
+    width:33%;
+    color:#447BC4;
+    cursor: pointer;
+    text-decoration: underline;
+    float:left;
+}
+
+.calendar_container .cal-title{
+    position:relative;
+}
+
+.calendar_container .cal-title .cal-prev-btn{
+    padding-left:10px;
+    position:absolute;
+    top:0;
+    cursor: pointer;
+}
+
+.calendar_container .cal-title .cal-next-btn{
+    padding-right:10px;
+    position:absolute;
+    top:0;
+    right:0;
+    cursor: pointer;
+}
+
+.calendar_container .cal-title .cal-select-sec{
+    width:100px;
+    margin:0 auto;
+}
+
+.cal-select-sec select{
+	/*border: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	text-indent: 1px;
+	text-overflow: '';
+	cursor: pointer;
+	z-index: 10;
+	filter: alpha(opacity=0);
+	text-align:right;*/
+}
+
+.calendar_container .cal-body{
+    padding: 13px 0 0 10px;
+    float:left;
+	position:relative;
+}
+
+.calendar_container .cal-body .cal-body-box{
+    width: 61px;
+    height: 43px;
+    float:left;
+    margin: 0px 2px 2px 0px;
+    border: 2px solid #f5f5f5;
+    padding:10px 0 0 10px;
+}
+
+.calendar_container .cal-body .cal-body-box-no-select{
+    width: 61px;
+    height: 43px;
+    float:left;
+    margin: 0px 2px 2px 0px;
+    border: 2px solid #f5f5f5;
+    padding:10px 0 0 10px;
+}
+
+.calendar_container .cal-body .cal-body-box-sml{
+    border: 2px solid #f5f5f5;
+    float: left;
+    height: 35px;
+    margin: 0 2px 2px 0;
+    padding: 5px 0 0 10px;
+    width: 45px;
+}
+
+.cal-body .cal-body-box-sml:hover{
+    background-color: #0096D7;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+
+.cal-body .month-header{
+    float: left;
+    font-weight: bold;
+    height: 35px;
+    margin: 0 2px 2px 0;
+    padding: 10px 0 0;
+    text-align: center;
+    color:#447BC4;
+    width: 48px;
+}
+
+.calendar_container .cal-body .cal-body-quarter-header{
+    color: #447bc4;
+    float: left;
+    font-weight: bold;
+    height: 30px;
+    margin: 8px 6px 0px 7px;
+    padding: 0 6px 0 10px;
+    width: 45px;
+}
+
+.cal-body .cal-body-box:hover{
+    background-color: #0096D7;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.cal-body .selected{
+    background-color: #88BACF;
+
+
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.cal-select-quarter{
+    display: none;
+}
+
+.cal-select-year{
+    display: none;
+}
+
+.left{
+    float:left;
+    width:50%;
+}
+
+.cal-body .left_pane{
+    width:20%;float:left;vertical-align:middle;
+}
+
+.cal-body .right_pane{
+    width:80%;float:left;
+}
+
+.cal-body-box-selected{
+    background-color: #0096D7;
+    color: #FFFFFF;
+}
+
+.disabled, .disabled:hover{
+    width: 61px;
+    height: 43px;
+    float:left;
+    margin: 0px 2px 2px 0px;
+    border: 2px solid #f5f5f5;
+    padding:10px 0 0 10px;
+    background-color:  #E7E7E7;
+    color: #C2C2C2;
+}
+
+.disabled-sml, disabled-sml:hover{
+    border: 2px solid #f5f5f5;
+    float: left;
+    height: 35px;
+    margin: 0 2px 2px 0;
+    padding: 5px 0 0 10px;
+    width: 45px;
+    background-color:  #E7E7E7;
+    color: #C2C2C2;
+}
+
+.choose_date_notice{
+	float: left;
+	position: absolute;
+	top: 40%;
+	left: 40%;
+	padding: 5px;
+	background-color: #FFFFFF;
+	border: 1px solid #C2C2C2;
+	color: #447bc4;
+	display: none;
+}
