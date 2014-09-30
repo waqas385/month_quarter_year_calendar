@@ -89,11 +89,11 @@
                 if (month < 10)
                     month = "0" + month;
 
-                selected = ($.inArray(year + "-" + month + "-01", selected_month_arr) != -1) ? "selected" : "";
+                selected = ($.inArray(year + "-" + month + "-01", selected_month_arr) != -1) ? "wq-selected" : "";
 				if(start_date != "" || end_date != ""){
 					sdt = year+"-"+month+"-01";
 				}
-				selected += (sdt != "" && (start_date == sdt || end_date == sdt)) ? " selected" : "";
+				selected += (sdt != "" && (start_date == sdt || end_date == sdt)) ? " wq-selected" : "";
                 months_html += '<div class="' + vclass + ' y_' + year + ' ' + selected + '">' + i + '</div>';
             });
             $("#cal-month").html(months_html);
@@ -124,13 +124,13 @@
                 
                 quarter_html += '<div class="row">';
                 quarter_html += '<div class="cal-body-quarter-header">' + i + '</div>';
-                sel_cls = ($.inArray(i + "-01-01", selected_quarter_arr) != -1) ? "selected" : "";
+                sel_cls = ($.inArray(i + "-01-01", selected_quarter_arr) != -1) ? "wq-selected" : "";
                 quarter_html += '<div class="' + vclass + ' y_' + i + ' ' + sel_cls + '">Q1</div>';
-                sel_cls = ($.inArray(i + "-04-01", selected_quarter_arr) != -1) ? "selected" : "";
+                sel_cls = ($.inArray(i + "-04-01", selected_quarter_arr) != -1) ? "wq-selected" : "";
                 quarter_html += '<div class="' + vclass + ' y_' + i + ' ' + sel_cls + '">Q2</div>';
-                sel_cls = ($.inArray(i + "-07-01", selected_quarter_arr) != -1) ? "selected" : "";
+                sel_cls = ($.inArray(i + "-07-01", selected_quarter_arr) != -1) ? "wq-selected" : "";
                 quarter_html += '<div class="' + vclass + ' y_' + i + ' ' + sel_cls + '">Q3</div>';
-                sel_cls = ($.inArray(i + "-10-01", selected_quarter_arr) != -1) ? "selected" : "";
+                sel_cls = ($.inArray(i + "-10-01", selected_quarter_arr) != -1) ? "wq-selected" : "";
                 quarter_html += '<div class="' + vclass + ' y_' + i + ' ' + sel_cls + '">Q4</div>';
                 quarter_html += '</div>';
 
@@ -157,7 +157,7 @@
 
             var year_html = "";
             for(i = st_year; i < en_year; i++){
-				sel_cls = ($.inArray(i+"-01-01",selected_year_arr) != -1 ) ? "selected" : "";
+				sel_cls = ($.inArray(i+"-01-01",selected_year_arr) != -1 ) ? "wq-selected" : "";
 				--disabled_years;
 				if(i < starting_year && settings.range_selection == true){
 					year_html += '<div class=" disabled '+sel_cls+'">'+i+'</div>';
@@ -312,12 +312,12 @@
                 }
             }
 
-            $("#cal-year").find(".cal-body-box").removeClass("selected");
+            $("#cal-year").find(".cal-body-box").removeClass("wq-selected");
 
             // select years
             $("#cal-year").find("div").each(function(i, o) {
                 if ($(this).text() * 1 > start_year && $(this).text() * 1 <= end_year) {
-                    $(this).addClass('selected');
+                    $(this).addClass('wq-selected');
                 }
             });
 
@@ -327,13 +327,13 @@
 
             $(".activated").val(year);
             set_calendar_config(year);
-            // line added to remove class 'selected'
-//			$("#cal-month").find(".cal-body-box").removeClass("selected");					
-            $("#cal-month").find("div").removeClass("selected");
+            // line added to remove class 'wq-selected'
+//			$("#cal-month").find(".cal-body-box").removeClass("wq-selected");					
+            $("#cal-month").find("div").removeClass("wq-selected");
 
             var start_index = months_arr[month_text] - settings.no_of_select_months;
 
-            $("#cal-month .y_" + year).slice(start_index, (start_index + settings.no_of_select_months)).addClass('selected');
+            $("#cal-month .y_" + year).slice(start_index, (start_index + settings.no_of_select_months)).addClass('wq-selected');
 
         }
 
@@ -354,9 +354,9 @@
             var year = "";
             var month = "";
             // get selection
-            $(".selected").each(function() {
+            $(".wq-selected").each(function() {
                 year = $(this).attr("class").split(" ")[1];
-                if (year != "selected") {
+                if (year != "wq-selected") {
                     year = year.split('_')[1];
 
                 } else {
@@ -478,10 +478,9 @@
                 case "monthly":
                     var get_year = jqObj.attr('class').split(' ')[1];
                     get_year = get_year.split('_')[1] * 1;
-
+                    
                     // If selected month is Dec or less than Dec upto Jul
-                    if (months_arr[jqObj.text()] >= settings.no_of_select_months && months_arr[jqObj.text()] <= 11) {
-
+                    if (months_arr[jqObj.text()] >= settings.no_of_select_months && months_arr[jqObj.text()] <= 12) {
                         select_months(get_year, jqObj.text());
                         save_selection();
                     } else {
@@ -731,12 +730,12 @@
 			
 			if(start_date == "" && end_date == ""){
                                 // if already selected (months, quarter, years)
-                                $(".cal-body").find("div.selected").removeClass("selected");
+                                $(".cal-body").find("div.wq-selected").removeClass("wq-selected");
                                 
 				start_date = create_date($(oSelectDate).text(), $(oSelectDate).attr("class"));
 				$(".choose_date_notice").html("Pick End Date");
 				// Add selected class to dates
-				$(oSelectDate).addClass("selected");
+				$(oSelectDate).addClass("wq-selected");
 			}
 			else if(end_date == "" && start_date != ""){
 				end_date = create_date($(oSelectDate).text(), $(oSelectDate).attr("class"));
@@ -745,7 +744,7 @@
 				$(".choose_date_notice").hide();
 				
 				// Add selected class to dates
-				$(oSelectDate).addClass("selected");
+				$(oSelectDate).addClass("wq-selected");
 			}
 			
 			var sDate = new Date(start_date.replace(/-/gi,','));
@@ -754,7 +753,7 @@
 			if(dateDiff < 0 ){
 				alert('Start date should be greater than End date');
 				$(".choose_date_notice").html("Pick End Date");
-				$(oSelectDate).removeClass("selected");
+				$(oSelectDate).removeClass("wq-selected");
 				end_date = "";
 				return;
 			}
@@ -768,7 +767,7 @@
 						if(dateDiff > settings.no_of_select_months ){
 							alert('No more than '+settings.no_of_select_months+' months can be selected');
 							$(".choose_date_notice").html("Pick End Date");
-							$(oSelectDate).removeClass("selected");
+							$(oSelectDate).removeClass("wq-selected");
 							end_date = "";
 							return;
 						}	
@@ -781,7 +780,7 @@
 						if(dateDiff > settings.no_of_select_quarters ){
 							alert('No more than '+settings.no_of_select_quarters+' quarters can be selected');
 							$(".choose_date_notice").html("Pick End Date");
-							$(oSelectDate).removeClass("selected");
+							$(oSelectDate).removeClass("wq-selected");
 							end_date = "";
 							return;
 						}
@@ -796,7 +795,7 @@
 						if(dateDiff > settings.no_of_select_years ){
 							alert('No more than '+settings.no_of_select_years+' years can be selected');
 							$(".choose_date_notice").html("Pick End Date");
-							$(oSelectDate).removeClass("selected");
+							$(oSelectDate).removeClass("wq-selected");
 							end_date = "";
 							return;
 						}
@@ -899,11 +898,11 @@
             $(".cal-body").on('click', '.cal-body-box, .cal-body-box-sml', function() {
                 if(settings.range_selection == false){
                         // remove if any column selected previously
-                        $(".cal-body").find(".cal-body-box-sml").removeClass("selected");
-                        $("#cal-month").find("div").removeClass("selected");
-                        $("#cal-quarter").find("div").removeClass("selected");
-                        $("#cal-year").find("div").removeClass("selected");
-                        $("#cal-year").find(".cal-body-box").removeClass("selected");
+                        $(".cal-body").find(".cal-body-box-sml").removeClass("wq-selected");
+                        $("#cal-month").find("div").removeClass("wq-selected");
+                        $("#cal-quarter").find("div").removeClass("wq-selected");
+                        $("#cal-year").find("div").removeClass("wq-selected");
+                        $("#cal-year").find(".cal-body-box").removeClass("wq-selected");
 
                         show_selection($(this));
                 }else{
