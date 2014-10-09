@@ -404,7 +404,9 @@
             }
 
         }
-
+        /*
+         * Disable months, quarters & years greater than current
+         */
         var add_disable = function() {
 
             var crr_year = current_date.getFullYear();
@@ -425,13 +427,13 @@
 
             } else {
 
-                if (crr_month > 0 && crr_month <= 3) {
+                if (crr_month > 0 && crr_month <= 2) {
                     crr_quarter = 1;
-                } else if (crr_month > 3 && crr_month <= 6) {
+                } else if (crr_month > 2 && crr_month <= 5) {
                     crr_quarter = 2;
-                } else if (crr_month > 6 && crr_month <= 10) {
+                } else if (crr_month > 5 && crr_month <= 8) {
                     crr_quarter = 3;
-                } else if (crr_month > 10) {
+                } else if (crr_month > 8) {
                     crr_quarter = 4;
                 }
 
@@ -727,10 +729,10 @@
 		var select_date_range = function(oSelectDate){
 			var dateDiff = 0;
 			variance = "";
-			
+			// if already selected (months, quarter, years)
+                        $(".cal-body").find("div.wq-selected").removeClass("wq-selected");
+                                
 			if(start_date == "" && end_date == ""){
-                                // if already selected (months, quarter, years)
-                                $(".cal-body").find("div.wq-selected").removeClass("wq-selected");
                                 
 				start_date = create_date($(oSelectDate).text(), $(oSelectDate).attr("class"));
 				$(".choose_date_notice").html("Pick End Date");
@@ -755,10 +757,14 @@
 				$(".choose_date_notice").html("Pick End Date");
 				$(oSelectDate).removeClass("wq-selected");
 				end_date = "";
+                                $(".cal-label-sel").trigger('click');
 				return;
-			}
+			}else if(dateDiff == 0){
+                                // in case when same date selected 
+                                variance = "M:"+start_date+","+end_date+",";
+                        }
 			
-			if(start_date != "" && end_date != ""){
+			if(start_date != "" && end_date != "" && dateDiff > 0){
 			
 				// check for date range
 				switch(settings.selected_filter){
