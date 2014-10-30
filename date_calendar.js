@@ -17,7 +17,7 @@
             end_year: current_date.getFullYear(),
             onSelect: null,
             disable_date_greater_today: true,
-			range_selection: false,
+			range_selection: false
         }, options);
 
         var variance = (settings.field_id) ? $("#" + settings.field_id).val() : "";
@@ -47,7 +47,7 @@
             for (var i = current_date.getFullYear(); i >= parseInt(settings.start_year); i = i - 3) {
                 // Show current year
                 selected = (i == current_date.getFullYear()) ? "selected" : "";
-                var opt = $(".cal-select-quarter").append('<option ' + selected + ' value="' + i + '">' + i + '</option>');
+                var opt = $(".cal-select-quarter").append('<option ' + selected + ' value="' + i + '">'+(i-3)+ " - " + i + '</option>');
             }
         }
 
@@ -60,7 +60,7 @@
             for (var i = current_year; i > settings.start_year; i = i - 5) {
                 // Show current year
                 selected = (i == current_date.getFullYear()) ? "selected" : "";
-                var opt = $(".cal-select-year").append('<option ' + selected + ' value="' + i + '">' + i + '</option>');
+                var opt = $(".cal-select-year").append('<option ' + selected + ' value="' + i + '">'+(i - 6)+" - " + (i + 5) + '</option>');
             }
 
         }
@@ -70,8 +70,8 @@
             var selected = "";
             var selected_month_arr = new Array();
             var month = "";
-			// show date selected, 
-			var sdt = "";
+            // show date selected, 
+            var sdt = "";
             // check, months are selected previously
             if (variance != "" && variance.split(':')[0] == "M") {
                 selected_month_arr = variance.split(':')[1].split(',');
@@ -90,10 +90,10 @@
                     month = "0" + month;
 
                 selected = ($.inArray(year + "-" + month + "-01", selected_month_arr) != -1) ? "wq-selected" : "";
-				if(start_date != "" || end_date != ""){
-					sdt = year+"-"+month+"-01";
-				}
-				selected += (sdt != "" && (start_date == sdt || end_date == sdt)) ? " wq-selected" : "";
+                if(start_date != "" || end_date != ""){
+                        sdt = year+"-"+month+"-01";
+                }
+                selected += (sdt != "" && (start_date == sdt || end_date == sdt)) ? " wq-selected" : "";
                 months_html += '<div class="' + vclass + ' y_' + year + ' ' + selected + '">' + i + '</div>';
             });
             $("#cal-month").html(months_html);
@@ -222,13 +222,14 @@
 			
 			// create date string
 			last_date_selected = create_date(jqObjText, year); 
-			last_date_selected = last_date_selected.replace(/-/gi,",");
+			//last_date_selected = last_date_selected.replace(/-/gi,",");
 			
 			var dt = "";
 			var mth = "";
 			// create date range for selected quarters
 			for(var i = 0; i < no_of_select_quarters; i++){
-				dt = new Date(last_date_selected);
+
+                		dt = date_obj(last_date_selected);
 				dt.setMonth(dt.getMonth() - i * 3);
 				mth = dt.getMonth() + 1;
 				mth = (mth < 10) ? "0"+mth : mth;
@@ -526,7 +527,7 @@
                     break;
                 case "quarterly":
                     var get_year = jqObj.attr('class').split(' ')[1];
-					select_quarters(get_year,jqObj.text());
+                    select_quarters(get_year,jqObj.html());
                     //save_selection();
 
                     break;
@@ -612,14 +613,33 @@
 			month = (month * 1 < 10)? "0"+ month * 1 : month;
 			return sDate = year+"-"+month+"-01";
 		}
+                
+                // date should be passed in format 2013-10-01 or 2013,01,01
+                var date_obj = function(sDate){
+                    // create array from string
+                    var arrDate = new Array();
+                    arrDate = sDate.split('-');
+                    if(arrDate.length < 3){
+                        arrDate = sDate.split(',');
+                    }
+                    var dY = arrDate[0] * 1;
+                    // -1 to populate selected month
+                    var dM = arrDate[1] * 1 - 1;
+                    var dD = arrDate[2] * 1;
+                    
+                    var oDate = new Date(parseInt(dY), parseInt(dM), parseInt(dD));
+                    
+                    return oDate;
+                }
 		
 		// Passing params should be string in format (YYYY-MM-DD)
 		// third param possible value (month, year, date, second, millisecond)
 		// Note: +1 added in return result to synchronize the date range
 		var date_difference = function(start, end, retType){
 			// create date objects
-			var s = new Date(start.replace(/-/gi, ','));
-			var e = new Date(end.replace(/-/gi, ','));
+                        var s = date_obj(start); 
+                        var e = date_obj(end);
+
 			var diffY, diffM, diffD, diffS, diffMS, diffQ;
 			var retDate = "";
 			
@@ -683,7 +703,7 @@
 					//console.log("Month Diff : "+loopCount);
 					// Start loop from 0, to add start date in the date range
 					for(var i = 0; i < loopCount; i++){
-						dt = new Date(start);
+						dt = date_obj(start);
 						dt.setMonth(dt.getMonth() * 1 + i);
 						y = dt.getFullYear();
 						m = dt.getMonth() * 1 + 1;
@@ -699,7 +719,7 @@
 					loopCount = date_difference(start, date, "quarters");
 					// Start loop from 0, to add start date in the date range
 					for(var i = 0; i < loopCount; i++){
-						dt = new Date(start);
+						dt = date_obj(start);
 						dt.setMonth(dt.getMonth() * 1 + i * 3);
 						y = dt.getFullYear();
 						m = dt.getMonth() * 1 + 1;
@@ -714,7 +734,7 @@
 					loopCount = date_difference(start, date, "years");
 					// Start loop from 0, to add start date in the date range
 					for(var i = 0; i < loopCount; i++){
-						dt = new Date(start);
+						dt = date_obj(start);
 						dt.setMonth(dt.getMonth() * 1 + i * 12);
 						y = dt.getFullYear();
 							
@@ -730,10 +750,11 @@
 			var dateDiff = 0;
 			variance = "";
 			// if already selected (months, quarter, years)
-                        $(".cal-body").find("div.wq-selected").removeClass("wq-selected");
+             //           $(".cal-body").find("div.wq-selected").removeClass("wq-selected");
                                 
 			if(start_date == "" && end_date == ""){
-                                
+                // if already selected (months, quarter, years)
+                $(".cal-body").find("div.wq-selected").removeClass("wq-selected");
 				start_date = create_date($(oSelectDate).text(), $(oSelectDate).attr("class"));
 				$(".choose_date_notice").html("Pick End Date");
 				// Add selected class to dates
@@ -748,9 +769,10 @@
 				// Add selected class to dates
 				$(oSelectDate).addClass("wq-selected");
 			}
-			
-			var sDate = new Date(start_date.replace(/-/gi,','));
-			var eDate = new Date(end_date.replace(/-/gi,','));
+            
+
+                        var sDate = date_obj(start_date);
+			var eDate = date_obj(end_date);
 			var dateDiff = eDate - sDate;
 			if(dateDiff < 0 ){
 				alert('Start date should be greater than End date');
@@ -901,7 +923,7 @@
             });
 
             // on month, quarter and year selection
-            $(".cal-body").on('click', '.cal-body-box, .cal-body-box-sml', function() {
+            $(document).on('click', '.cal-body-box, .cal-body-box-sml', function() {
                 if(settings.range_selection == false){
                         // remove if any column selected previously
                         $(".cal-body").find(".cal-body-box-sml").removeClass("wq-selected");
@@ -949,6 +971,4 @@
 
 
 // Reverse jquery plugin
-$.fn.reverse = [].reverse;
-
-
+$.fn.reverse = [].reverse;	
